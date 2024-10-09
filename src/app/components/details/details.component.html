@@ -1,0 +1,47 @@
+
+
+<div class="card mb-3 mt-5">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img [src]="housingLocation?.photo" class="img-fluid rounded-start custom-card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h2 class="card-title">{{housingLocation?.name}}</h2>
+        <p class="card-text listing-location">{{housingLocation?.city}}, {{housingLocation?.state}}</p>
+        <h5 class="card-title">About this housing location</h5>
+        <ul class="list-group">
+          <li class="list-group-item">Units available: {{housingLocation?.availableUnits}}</li>
+          <li class="list-group-item">Does this location have wifi: {{housingLocation?.wifi}}</li>
+          <li class="list-group-item">Does this location have laundry: {{housingLocation?.laundry}}</li>
+        </ul>
+
+        <h5 class="card-title mt-2">Apply now to live here</h5>
+        <form class="form" [formGroup]="applyForm" (submit)="submitApplication()">
+          <label for="first-name">First Name:</label>
+          <input class="form-control" id="first-name" type="text" formControlName="firstName">
+          <span *ngIf="isValidField('firstName')"
+            class="form-text text-danger"
+            >
+            {{getFieldError('firstName')}}
+          </span>
+          <label for="last-name">Last Name:</label>
+          <input class="form-control" id="last-name" type="text" formControlName="lastName">
+          <span *ngIf="isValidField('lastName')"
+            class="form-text text-danger"
+            >
+            {{getFieldError('lastName')}}
+          </span>
+          <label for="email">Email:</label>
+          <input class="form-control" id="email" type="email" formControlName="email">
+          <span *ngIf="isValidField('email')"
+            class="form-text text-danger"
+            >
+            {{getFieldError('email')}}
+          </span>
+          <button type="submit" class="btn btn-primary mt-2">Apply now</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

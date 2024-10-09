@@ -1,0 +1,13 @@
+.listing-location {
+  padding: 10px 10px 10px 10px;
+}
+.listing-location::before {
+  content: url("../../../assets/location-ping.svg") / "";
+  padding:5px;
+}
+
+
+.fixed-image {
+  height: 200px;
+  object-fit: cover;
+}

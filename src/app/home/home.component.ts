@@ -1,28 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HousingLocation } from '../interfaces/housinglocation.interface';
+import { HousingService } from '../services/housing.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
-  public data = "dsd";
+  public filteredLocationList: HousingLocation[] = [];
 
-  readonly baseUrl = 'https://angular.io/assets/images/tutorials/faa';
+  public housingLocationList:HousingLocation[] = [];
 
-  public housingLocation: HousingLocation = {
-    id: 9999,
-    name: 'Test Home',
-    city: 'Test city',
-    state: 'ST',
-    photo: `${this.baseUrl}/example-house.jpg`,
-    availableUnits: 99,
-    wifi: true,
-    laundry: false,
-  };
+  public housingLocation!:HousingLocation;
 
+  public housingService = inject(HousingService);
 
+  ngOnInit(): void {
+    this.housingLocationList = this.housingService.getAllHousingLocations();
+    this.filteredLocationList = structuredClone(this.housingLocationList);
+  }
+
+  filterResults(text:string){
+    if(!text.trim()){
+      this.filteredLocationList = structuredClone(this.housingLocationList);
+      return;
+    }
+
+    this.filteredLocationList = this.housingLocationList.filter(
+      housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
+    );
+
+  }
 
 }
